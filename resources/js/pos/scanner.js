@@ -23,6 +23,13 @@ export class CameraScanner {
     }
 
     async start({ onDecode, onError, onPermissionDenied }) {
+        // Defensive: if something calls start() twice without an intervening
+        // stop() (e.g. a lifecycle hook firing more than once), tear down any
+        // existing instance first so we never end up with two <video>
+        // elements stacked in the same container.
+        await this.stop();
+        document.getElementById(this.elementId)?.replaceChildren();
+
         this.html5Qrcode = new Html5Qrcode(this.elementId, {
             formatsToSupport: SUPPORTED_FORMATS,
             verbose: false,

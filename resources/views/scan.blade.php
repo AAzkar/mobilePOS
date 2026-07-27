@@ -1,5 +1,5 @@
 <x-layout title="Scan">
-    <div x-data="scanPage()" x-init="init()" class="space-y-4">
+    <div x-data="scanPage()" class="space-y-4">
 
         {{-- Camera preview --}}
         <div class="relative overflow-hidden rounded-xl border border-slate-200 bg-black">
